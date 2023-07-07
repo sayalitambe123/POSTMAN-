@@ -1,0 +1,176 @@
+{
+	"info": {
+		"_postman_id": "bf2bc2b2-af9c-4b44-b503-44bd1ae70458",
+		"name": "REST_Assignment_POST_AutomateTest",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "POST_TC1_Validate Add User",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "09d614d4-833c-4fe8-af9a-e428b1a16ce6",
+						"exec": [
+							"//Validating status code\r",
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"//Validating response body\r",
+							"var responseBody = pm.response.json();\r",
+							"var Actualdate = new Date().toJSON().slice(0,10);\r",
+							"var response_name = responseBody.name;\r",
+							"var response_job = responseBody.job;\r",
+							"var response_id = responseBody.id;\r",
+							"var response_createdAt = responseBody.createdAt;\r",
+							"response_createdAt = response_createdAt.slice(0,10);\r",
+							"\r",
+							"pm.test(\"Name validation\",function(){\r",
+							"    pm.expect(response_name).to.eql(\"morpheus\")\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Job validation\", function(){\r",
+							"    pm.expect(response_job).to.eql(\"leader\")\r",
+							"});\r",
+							"\r",
+							"pm.test(\"id validation\", function(){\r",
+							"    pm.expect(response_id).to.not.eql(0);\r",
+							"    pm.expect(response_id).to.not.null;\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Created at validation\", function(){\r",
+							"    pm.expect(response_createdAt).to.eql(Actualdate);\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"_postman_id": "c9668465-7210-4551-8a58-559b3be7b220",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"morpheus\",\r\n    \"job\": \"leader\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "https://reqres.in/api/users"
+			},
+			"response": []
+		},
+		{
+			"name": "POST_TC2_Validate Add User Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "09d614d4-833c-4fe8-af9a-e428b1a16ce6",
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"var responsebody = pm.response.json();\r",
+							"console.log(responsebody);\r",
+							"\r",
+							"var res_name = responsebody.name;\r",
+							"var res_job = responsebody.job;\r",
+							"var res_id = responsebody.id;\r",
+							"var res_createdAt = responsebody.createdAt;\r",
+							"res_createdAt = res_createdAt.slice(0,10);\r",
+							" \r",
+							"var date = new Date().toJSON().slice(0,10);\r",
+							"\r",
+							"\r",
+							"pm.test(\"Name validation\", function(){\r",
+							"    pm.expect(res_name).to.eqls(\"Sayali\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"_postman_id": "fba75d62-2eb9-4b00-889c-d7e9a47c2c1c",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Sayali\",\r\n    \"job\": \"HR\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "https://reqres.in/api/users"
+			},
+			"response": []
+		},
+		{
+			"name": "PUT_TC1_Validate update user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e576ddd0-535e-45a4-8446-cb5e79fa1037",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"var responseBody = pm.response.json();\r",
+							"\r",
+							"var res_name = responseBody.name;\r",
+							"var res_job = responseBody.job;\r",
+							"var res_updatedAt = responseBody.updatedAt;\r",
+							"\r",
+							"res_updatedAt = res_updatedAt.slice(0,10);\r",
+							"\r",
+							"var date = new Date().toJSON().slice(0,10);\r",
+							"\r",
+							"pm.test(\"Name validation\", function(){\r",
+							"    pm.expect(res_name).eql(\"morpheus\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"_postman_id": "7492f9d8-8c7f-4c8b-92f5-a6fefa9e6c77",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"morpheus\",\r\n    \"job\": \"zion resident\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "https://reqres.in/api/users/2"
+			},
+			"response": []
+		}
+	]
+}
