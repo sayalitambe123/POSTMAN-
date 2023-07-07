@@ -1,0 +1,100 @@
+{
+	"info": {
+		"_postman_id": "f118da70-92fd-487a-80bc-7a38fedffc7e",
+		"name": "REST_API_Data driven testing",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "POST_Register Successful",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2e99b6ac-a2dd-412e-b08d-70804dee392a",
+						"exec": [
+							"//Status code\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"\r",
+							"//response body\r",
+							"var responseBody = pm.response.json();\r",
+							"var res_id = responseBody.id;\r",
+							"var res_token = responseBody.token;\r",
+							"\r",
+							"\r",
+							"pm.test(\"ID genaration\", function(){\r",
+							"    pm.expect(res_id).eq(4);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"token Genaration\", function(){\r",
+							"    pm.expect(res_token).eql(\"QpwL5tke4Pnpja7X4\");\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"_postman_id": "da5e0ff4-9b32-4cfa-bcf3-90e730f8a3c9",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"{{email}}\",\r\n    \"password\": \"{{password}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{BASE_URL}}/api/register"
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "e780fc8b-1303-4307-b362-21ca49136818",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "5ec6b6e3-8b6f-4d00-8155-fa20fa14deb0",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "96efcc62-68de-458e-8660-a63997171b86",
+			"key": "email",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "9c3ee082-ca23-4222-bdbd-718a1a709bc6",
+			"key": "password",
+			"value": "",
+			"type": "string"
+		}
+	]
+}
