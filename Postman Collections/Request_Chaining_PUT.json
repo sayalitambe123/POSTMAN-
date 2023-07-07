@@ -1,0 +1,116 @@
+{
+	"info": {
+		"_postman_id": "44ade496-cc9b-4d9b-9129-cfd3d373f76c",
+		"name": "RESTAPI_Assignment10_RequestChaining_PUT",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "PUT",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "18ebb0d0-5a73-4bd7-9a68-030fd5e8c8ff",
+						"exec": [
+							"var status = pm.response.status;\r",
+							"var start = pm.collectionVariables.get(\"counter_start\");\r",
+							"var end = pm.collectionVariables.get(\"counter_end\");\r",
+							"if(status == 'Created'){\r",
+							"\r",
+							"    pm.test(\"Status code is 200\", function () {\r",
+							"        pm.response.to.have.status(200);\r",
+							"    });\r",
+							"    \r",
+							"}\r",
+							"else{\r",
+							"    if(start<end){\r",
+							"        pm.collectionVariables.set(\"counter_start\",eval(start+1));\r",
+							"        postman.setNextRequest(\"PUT\");\r",
+							"    }\r",
+							"    else{\r",
+							"        postman.setNextRequest(null);\r",
+							"        pm.collectionVariables.set(\"counter_start\",0);\r",
+							"        \r",
+							"    }\r",
+							"} "
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "81766837-2173-40c8-bb7d-790a9f6815d8",
+						"exec": [
+							"var name = pm.variables.replaceIn(\"{{$randomFirstName}}\");\r",
+							"pm.collectionVariables.set(\"coll_name\", name);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"_postman_id": "19eeb25b-e53f-4861-922b-978737d91dcf",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Sayali\",\r\n    \"job\": \"Designer\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "https://reqres.in/api/users/2"
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "cbf0e3f7-c32d-4b54-a172-a15ee0a271e2",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "b6309da5-7fc1-4899-98bf-a2b0e545d11d",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "0747a591-4be6-4e94-9a8b-6a9140c075d5",
+			"key": "coll_name",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "f5c12330-4ad4-4850-958b-0f22d775326b",
+			"key": "counter_start",
+			"value": "0",
+			"type": "string"
+		},
+		{
+			"id": "29e6e720-2ba8-419b-8eb6-c50fff015c40",
+			"key": "counter_end",
+			"value": "5",
+			"type": "string"
+		}
+	]
+}
