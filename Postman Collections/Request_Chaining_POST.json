@@ -1,0 +1,124 @@
+{
+	"info": {
+		"_postman_id": "c553e9fb-469b-4e76-aa6d-393cf392bdc1",
+		"name": "RESTAPI_Assignment10_Request Chaining_POST",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "POST_Register",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "06e7c633-7266-4add-9c66-6f2cb5d787cd",
+						"exec": [
+							"var email = pm.variables.replaceIn(\"{{$randomemailaddress}}\");\r",
+							"pm.collectionVariables.set(\"coll_email\", email);"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "e0c51531-c23f-4415-9cc3-3158e5d32251",
+						"exec": [
+							"var status = pm.response.status;\r",
+							"var start = pm.collectionVariables.get(\"counter_start\");\r",
+							"var end = pm.collectionVariables.get(\"counter_end\");\r",
+							"if(status == 'created'){\r",
+							"\r",
+							"    pm.test(\"Status code is 201\", function () {\r",
+							"        pm.response.to.have.status(201);\r",
+							"    });\r",
+							"}\r",
+							"else{\r",
+							"    if(start<end){\r",
+							"        pm.collectionVariables.set(\"counter_start\",(parseInt(start)+1));\r",
+							"        postman.setNextRequest(\"POST_Register\");\r",
+							"    }\r",
+							"    else{\r",
+							"        postman.setNextRequest(null);\r",
+							"        pm.collectionVariables.set(\"counter_start\",0);\r",
+							"        console.log(status);\r",
+							"        pm.test(\"Status code is 200\", function () {\r",
+							"            pm.response.to.have.status(200);\r",
+							"        });\r",
+							"    }\r",
+							"} "
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"_postman_id": "6ce20bd9-f46e-4fd2-8554-c63ac429c961",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"{{coll_email}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{POST_REGISTER}}"
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "b79fbaca-45c8-43c6-82ce-63d1e8a32e9f",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "4d809207-5e32-4318-88a4-7c74578ea9aa",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "e35360dc-aa31-459e-9e06-73500a41062a",
+			"key": "coll_email",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "7d071bbe-7c08-4d16-942e-03ea7a88df8a",
+			"key": "counter_start",
+			"value": "1",
+			"type": "string"
+		},
+		{
+			"id": "00774467-bf63-416f-a693-4ec9806f9278",
+			"key": "counter_end",
+			"value": "5",
+			"type": "string"
+		},
+		{
+			"id": "505a978b-7a24-4005-8e47-fb7af5e504df",
+			"key": "coll_name",
+			"value": "",
+			"type": "string"
+		}
+	]
+}
