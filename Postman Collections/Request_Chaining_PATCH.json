@@ -1,0 +1,125 @@
+{
+	"info": {
+		"_postman_id": "f7241fd5-8e43-4123-b42a-c2dd95dfd151",
+		"name": "RESTAPI_Assignment10_RequestChaining_PATCH",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "PATCH",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e66212fb-6f98-410a-8561-77e06584bff6",
+						"exec": [
+							"var status = pm.response.status;\r",
+							"var start = pm.collectionVariables.get(\"counter_start\");\r",
+							"var end = pm.collectionVariables.get(\"counter_end\");\r",
+							"if(status == 'Updated'){\r",
+							"\r",
+							"    pm.test(\"Status code is 200\", function () {\r",
+							"        pm.response.to.have.status(200);\r",
+							"    });\r",
+							"    \r",
+							"}\r",
+							"else{\r",
+							"    if(start<end){\r",
+							"        pm.collectionVariables.set(\"counter_start\",eval(start+1));\r",
+							"        postman.setNextRequest(\"PATCH\");\r",
+							"    }\r",
+							"    else{\r",
+							"        postman.setNextRequest(null);\r",
+							"        pm.collectionVariables.set(\"counter_start\",0);\r",
+							"        \r",
+							"    }\r",
+							"} "
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "06409849-ef55-4b51-99a6-88b41bfc1581",
+						"exec": [
+							"var name = pm.variables.replaceIn(\"{{$randomFirstName}}\");\r",
+							"pm.collectionVariables.set(\"Collect_name\",name);\r",
+							"\r",
+							"var job = pm.variables.replaceIn(\"{{$randomJobTitle}}\");\r",
+							"pm.collectionVariables.set(\"Collect_job\",job);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"_postman_id": "b885a584-ac27-43ce-8817-b636af609719",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"{{Collect_name}}\",\r\n    \"job\": \"{{Collect_job}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{PATCH_URL}}"
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "47715ffe-76f2-4a49-9ff5-aa1d1e6325d6",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "46b74506-3c09-4b40-80ae-980b699cc7e6",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "cd85274f-a28f-4cd6-9571-bcc43022ba18",
+			"key": "counter_start",
+			"value": "0",
+			"type": "string"
+		},
+		{
+			"id": "f76e684d-0031-4221-817c-b36d6bb888a5",
+			"key": "counter_end",
+			"value": "5",
+			"type": "string"
+		},
+		{
+			"id": "cdd4564a-468c-4d15-9a31-6c1da0bd572e",
+			"key": "Collect_name",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "e8f3a3fc-f817-402a-9fe2-5270d635f282",
+			"key": "Collect_job",
+			"value": "",
+			"type": "string"
+		}
+	]
+}
